@@ -4,12 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Target, Trophy, Star, Zap } from "lucide-react";
+import { BookOpen, Target, Trophy, Star, Zap, Settings } from "lucide-react";
 import { WordCard } from "@/components/WordCard";
 import { ScenarioCard } from "@/components/ScenarioCard";
 import { KavyaAI } from "@/components/KavyaAI";
 import { WordLearningActivity } from "@/components/WordLearningActivity";
+import { AudioSettings } from "@/components/AudioSettings";
 import { useLearningProgress } from "@/hooks/useLearningProgress";
+import { useTextToSpeech } from "@/hooks/useTextToSpeech";
 import { toast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -23,6 +25,13 @@ const Index = () => {
   } = useLearningProgress();
 
   const [learningWord, setLearningWord] = useState<string | null>(null);
+  const [elevenLabsApiKey, setElevenLabsApiKey] = useState<string>('');
+  const [selectedVoice, setSelectedVoice] = useState<string>('Aria');
+  
+  const { speak, isPlaying } = useTextToSpeech({ 
+    apiKey: elevenLabsApiKey, 
+    voiceId: selectedVoice 
+  });
 
   const currentScenario = scenarios.find(s => s.id === progress.currentScenario);
   const scenarioWords = currentScenario 
@@ -51,11 +60,10 @@ const Index = () => {
   };
 
   const handlePronunciation = (wordId: string) => {
-    // Simulated pronunciation
-    toast({
-      title: "🔊 Playing pronunciation",
-      description: "Listen carefully and repeat!"
-    });
+    const word = getWordProgress(wordId);
+    if (word) {
+      speak(word.kannada);
+    }
   };
 
   const handleScenarioStart = (scenarioId: string) => {
@@ -117,7 +125,7 @@ const Index = () => {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="vocabulary" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="vocabulary" className="gap-2">
               <BookOpen className="w-4 h-4" />
               Vocabulary
@@ -129,6 +137,10 @@ const Index = () => {
             <TabsTrigger value="progress" className="gap-2">
               <Star className="w-4 h-4" />
               Progress
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="gap-2">
+              <Settings className="w-4 h-4" />
+              Audio
             </TabsTrigger>
           </TabsList>
 
@@ -247,6 +259,16 @@ const Index = () => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Audio Settings Tab */}
+          <TabsContent value="settings" className="space-y-6">
+            <AudioSettings
+              apiKey={elevenLabsApiKey}
+              voiceId={selectedVoice}
+              onApiKeyChange={setElevenLabsApiKey}
+              onVoiceChange={setSelectedVoice}
+            />
           </TabsContent>
         </Tabs>
       </main>

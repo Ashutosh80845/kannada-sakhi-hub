@@ -2,39 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Karnataka-inspired Design System for ಕನ್ನಡ ಸಖಿ (Kannada Sakhi)
+All colors MUST be HSL. Cultural colors inspired by Karnataka heritage.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Brand Colors - Karnataka Heritage */
+    --background: 35 15% 98%;
+    --foreground: 20 15% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 20 15% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 20 15% 12%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Saffron/Karnataka Orange */
+    --primary: 25 95% 53%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 28 100% 88%;
+    --primary-glow: 25 95% 63%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Mysore Silk Green */
+    --secondary: 140 45% 45%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 140 25% 92%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Accent - Royal Mysore Purple */
+    --accent: 280 35% 55%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 280 15% 95%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 35 8% 96%;
+    --muted-foreground: 20 10% 55%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 35 15% 90%;
+    --input: 35 15% 95%;
+    --ring: 25 95% 53%;
+
+    /* Learning Progress Colors */
+    --progress-gray: 0 0% 75%;
+    --progress-blue: 210 80% 60%;
+    --progress-green: 140 50% 50%;
+    --progress-gold: 45 100% 50%;
+    --progress-purple: 280 50% 60%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-warm: linear-gradient(135deg, hsl(var(--primary-light)), hsl(var(--accent-light)));
+    --gradient-success: linear-gradient(135deg, hsl(var(--secondary)), hsl(140 60% 60%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(35 20% 98%));
+
+    /* Shadows */
+    --shadow-soft: 0 2px 12px hsl(var(--primary) / 0.1);
+    --shadow-warm: 0 4px 20px hsl(var(--primary) / 0.15);
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.3);
+    --shadow-success: 0 4px 15px hsl(var(--secondary) / 0.2);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
 
     --radius: 0.5rem;
 
@@ -56,33 +89,37 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 20 15% 8%;
+    --foreground: 35 15% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 20 10% 12%;
+    --card-foreground: 35 15% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 20 10% 12%;
+    --popover-foreground: 35 15% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 25 95% 53%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 25 40% 25%;
+    --primary-glow: 25 95% 63%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 140 40% 35%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 140 15% 15%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 280 30% 45%;
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 280 15% 15%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --muted: 20 10% 18%;
+    --muted-foreground: 35 8% 65%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 20 10% 22%;
+    --input: 20 10% 18%;
+    --ring: 25 95% 53%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,6 +137,57 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    background: hsl(var(--background));
+  }
+
+  /* Kannada Script Support */
+  .kannada-text {
+    font-family: 'Noto Sans Kannada', 'Segoe UI', system-ui, sans-serif;
+    font-weight: 500;
+  }
+
+  /* Progress Ring Animations */
+  @keyframes progress-fill {
+    from { stroke-dasharray: 0 100; }
+    to { stroke-dasharray: var(--progress) 100; }
+  }
+
+  .progress-ring {
+    animation: progress-fill 1s ease-out;
+  }
+
+  /* Success Celebration Animation */
+  @keyframes celebrate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  .celebrate {
+    animation: celebrate 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* Word Learning Card Flip */
+  @keyframes card-flip {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(90deg); }
+    100% { transform: rotateY(0deg); }
+  }
+
+  .card-flip {
+    animation: card-flip 0.6s ease-in-out;
+  }
+
+  /* Glow Effects */
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

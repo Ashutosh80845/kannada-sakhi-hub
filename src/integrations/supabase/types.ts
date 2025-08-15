@@ -14,7 +14,294 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      badges: {
+        Row: {
+          description: string | null
+          id: number
+          image_url: string | null
+          name: string
+          unlocks_content: string | null
+        }
+        Insert: {
+          description?: string | null
+          id?: number
+          image_url?: string | null
+          name: string
+          unlocks_content?: string | null
+        }
+        Update: {
+          description?: string | null
+          id?: number
+          image_url?: string | null
+          name?: string
+          unlocks_content?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          id: string
+          username: string | null
+          xp_points: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id: string
+          username?: string | null
+          xp_points?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          username?: string | null
+          xp_points?: number | null
+        }
+        Relationships: []
+      }
+      scenario_words: {
+        Row: {
+          frequency_in_scenario: string | null
+          id: number
+          learning_priority: number
+          scenario_id: number
+          word_id: string
+        }
+        Insert: {
+          frequency_in_scenario?: string | null
+          id?: number
+          learning_priority: number
+          scenario_id: number
+          word_id: string
+        }
+        Update: {
+          frequency_in_scenario?: string | null
+          id?: number
+          learning_priority?: number
+          scenario_id?: number
+          word_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scenario_words_scenario_id_fkey"
+            columns: ["scenario_id"]
+            isOneToOne: false
+            referencedRelation: "scenarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "scenario_words_word_id_fkey"
+            columns: ["word_id"]
+            isOneToOne: false
+            referencedRelation: "words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scenarios: {
+        Row: {
+          audio_ambience_url: string | null
+          created_at: string | null
+          cultural_briefing: string | null
+          description: string | null
+          id: number
+          location_context: string | null
+          title: string
+          unlock_message: string | null
+        }
+        Insert: {
+          audio_ambience_url?: string | null
+          created_at?: string | null
+          cultural_briefing?: string | null
+          description?: string | null
+          id?: number
+          location_context?: string | null
+          title: string
+          unlock_message?: string | null
+        }
+        Update: {
+          audio_ambience_url?: string | null
+          created_at?: string | null
+          cultural_briefing?: string | null
+          description?: string | null
+          id?: number
+          location_context?: string | null
+          title?: string
+          unlock_message?: string | null
+        }
+        Relationships: []
+      }
+      user_badges: {
+        Row: {
+          achieved_at: string | null
+          badge_id: number
+          id: number
+          user_id: string
+        }
+        Insert: {
+          achieved_at?: string | null
+          badge_id: number
+          id?: number
+          user_id: string
+        }
+        Update: {
+          achieved_at?: string | null
+          badge_id?: number
+          id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_badge_id_fkey"
+            columns: ["badge_id"]
+            isOneToOne: false
+            referencedRelation: "badges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_badges_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_scenario_progress: {
+        Row: {
+          highest_score: number | null
+          id: number
+          mastered_at: string | null
+          scenario_id: number
+          status: string
+          unlocked_at: string | null
+          user_id: string
+        }
+        Insert: {
+          highest_score?: number | null
+          id?: number
+          mastered_at?: string | null
+          scenario_id: number
+          status?: string
+          unlocked_at?: string | null
+          user_id: string
+        }
+        Update: {
+          highest_score?: number | null
+          id?: number
+          mastered_at?: string | null
+          scenario_id?: number
+          status?: string
+          unlocked_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_scenario_progress_scenario_id_fkey"
+            columns: ["scenario_id"]
+            isOneToOne: false
+            referencedRelation: "scenarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_scenario_progress_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_word_progress: {
+        Row: {
+          id: number
+          last_reviewed_at: string | null
+          mastery_level: number
+          next_review_at: string | null
+          pronunciation_score: number | null
+          times_correct: number | null
+          times_incorrect: number | null
+          user_id: string
+          word_id: string
+        }
+        Insert: {
+          id?: number
+          last_reviewed_at?: string | null
+          mastery_level?: number
+          next_review_at?: string | null
+          pronunciation_score?: number | null
+          times_correct?: number | null
+          times_incorrect?: number | null
+          user_id: string
+          word_id: string
+        }
+        Update: {
+          id?: number
+          last_reviewed_at?: string | null
+          mastery_level?: number
+          next_review_at?: string | null
+          pronunciation_score?: number | null
+          times_correct?: number | null
+          times_incorrect?: number | null
+          user_id?: string
+          word_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_word_progress_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_word_progress_word_id_fkey"
+            columns: ["word_id"]
+            isOneToOne: false
+            referencedRelation: "words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      words: {
+        Row: {
+          audio_url: string | null
+          created_at: string | null
+          cultural_context: string | null
+          english_translation: string
+          id: string
+          image_mnemonic_url: string | null
+          kannada_script: string
+          memory_association: string | null
+          roman_pronunciation: string
+          similar_hindi: string | null
+        }
+        Insert: {
+          audio_url?: string | null
+          created_at?: string | null
+          cultural_context?: string | null
+          english_translation: string
+          id: string
+          image_mnemonic_url?: string | null
+          kannada_script: string
+          memory_association?: string | null
+          roman_pronunciation: string
+          similar_hindi?: string | null
+        }
+        Update: {
+          audio_url?: string | null
+          created_at?: string | null
+          cultural_context?: string | null
+          english_translation?: string
+          id?: string
+          image_mnemonic_url?: string | null
+          kannada_script?: string
+          memory_association?: string | null
+          roman_pronunciation?: string
+          similar_hindi?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
